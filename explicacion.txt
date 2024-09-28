@@ -1,0 +1,28 @@
+@everyone
+
+Tarea #4 (TODOS LOS GRUPOS)
+
+Usen el lenguaje y la plataforma ASIGNADOS A SU GRUPO:
+
+JavaScript o TypeScript, usen React (pueden usar cualquier cosa para almacenar los datos de usuario, por ejemplo, implementar el backend con Node.js+Express+MySQL; también pueden usar algún SaaS como Firebase, pero tengan cuidado, si deciden usar "usuarios predeterminados", podría ser problemático eliminarlos).
+
+C#, .NET, algún tipo de ASP.NET, SQL Server (o cualquier base de datos).
+
+Crea una aplicación web funcional y desplegada con registro y autenticación. Los usuarios no autenticados no deben tener acceso a la gestión de usuarios (panel de administración). Solo los usuarios autenticados deben tener acceso a la tabla de gestión de usuarios: id, nombre, correo electrónico, última hora de inicio de sesión, hora de registro, estado (activo/bloqueado).
+
+La columna más a la izquierda de la tabla debe contener casillas de verificación (checkboxes) sin etiquetas para la selección múltiple (la cabecera de la tabla solo contiene una casilla de verificación sin etiqueta que selecciona o deselecciona todos los registros).
+
+Debe haber una barra de herramientas sobre la tabla con las siguientes acciones: Bloquear (botón rojo con texto), Desbloquear (ícono), Eliminar (ícono).
+
+Tienen que usar algún framework de CSS (se recomienda Bootstrap, pero pueden elegir cualquier framework de CSS).
+
+Todos los usuarios deben poder bloquear o eliminar a sí mismos o a cualquier otro usuario.
+
+Si una cuenta de usuario está bloqueada o eliminada, cualquier solicitud posterior del usuario debe redirigir a la página de inicio de sesión.
+
+El usuario puede usar cualquier contraseña no vacía (incluso un solo carácter). Si utilizan un servicio de terceros para almacenar usuarios, pueden 1) implementar sus propios "usuarios" allí o 2) aceptar que algunos requisitos no se puedan implementar (pero obtendrán resultados más rápido).
+
+Un usuario bloqueado no debe poder iniciar sesión; un usuario eliminado puede volver a registrarse.
+
+DEBEN CREAR UN ÍNDICE ÚNICO EN LA BASE DE DATOS SELECCIONADA. NO VERIFICAR LA UNICIDAD CON SU CÓDIGO, SINO CREAR EL ÍNDICE.
+
