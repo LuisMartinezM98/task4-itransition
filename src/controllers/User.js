@@ -67,8 +67,6 @@ const getUsersPaginated = async (req, res) => {
       const page = Number.isNaN(parseInt(req.params.page, 10)) ? 1 : parseInt(req.params.page, 10);
       const limit = 1;
       const offset = (page - 1) * limit;
-  
-      // Ejecutar consulta para obtener usuarios
       const users = await User.findAndCountAll({
         limit: limit,
         offset: offset,
@@ -82,20 +80,15 @@ const getUsersPaginated = async (req, res) => {
         },
         order: [['created_at', 'DESC']]
       });
-  
-      // Solo enviar respuesta si la consulta fue exitosa
       const objectUsers = {
         totalUsers: users.count,
         totalPages: Math.ceil(users.count / limit),
         currentPage: page,
         users: users.rows
       };
-  
-      // Enviar la respuesta una única vez
       return res.status(200).json(objectUsers);
     } catch (error) {
-      // Enviar respuesta en caso de error (una única vez)
-      if (!res.headersSent) {  // Verificar si no se han enviado las cabeceras
+      if (!res.headersSent) {
         return res.status(500).json({ message: 'Error fetching users', error: error.message });
       }
     }
@@ -113,5 +106,22 @@ const changeAcitve = async(req, res) => {
     return res.status(200).send({msg: 'Update successful'});
 }
 
+const deletedUser = async(req, res) => {
+    const { id } = req.body;
+    try {
+        const user = await User.findOne({
+            where:{
+                id: id
+            }
+        });
+        user.deleted_at = new Date();
+        await user.save();
+        return res.status(200).send({msg: 'User deleted'})
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({msg: 'Something was wrong'})
+    }
+}
 
-module.exports = {singUp, logIn, changeAcitve, getUsersPaginated}
+
+module.exports = {singUp, logIn, changeAcitve, getUsersPaginated, deletedUser}
