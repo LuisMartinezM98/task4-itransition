@@ -5,25 +5,32 @@ const sequelize = require("./src/config/db");
 const routerUser = require("./src/routes/User");
 
 
+dotenv.config();
+
 const app = express();
 
 const corsOptions = {
-    origin: `${process.env.URL_FRONTEND}`,
+    origin: (origin, callback) => {
+        if (origin === undefined || origin === process.env.URL_FRONTEND) {
+            callback(null, true); 
+        } else {
+            callback(new Error('No permitido por CORS')); 
+        }
+    },
     methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
     allowedHeaders: ['Content-Type', 'Authorization'],
     exposedHeaders: ['Content-Length', 'X-Kuma-Revision'],
     credentials: true,
     preflightContinue: false,
     optionsSuccessStatus: 204
-}
+};
+
 
 
 app.use(express.json());
 app.use(cors(corsOptions));
 app.use('/api/users', routerUser);
 
-
-dotenv.config();
 
 app.get("/api", (req, res) => {
     res.send("Welcom to TASK#4 API")
