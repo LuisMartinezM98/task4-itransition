@@ -16,14 +16,13 @@ const singUp = async (req, res) => {
     const emailUsed = await User.findOne({
         where: {
             email: email,
-            deleted_at: {
-                [Op.ne]: null
-            }
+            deleted_at: null
         }
     });
-    if(emailUsed){
-        const err = new Error('This email has already used');
-        return res.status(400).json({msg: err.message});
+    
+    if (emailUsed) {
+        const err = new Error('This email has already been used');
+        return res.status(400).json({ msg: err.message });
     }
     try {
         const hash = await crypto.createHash('sha256').update(password).digest('hex');
@@ -65,7 +64,7 @@ const logIn = async(req, res) => {
 const getUsersPaginated = async (req, res) => {
     try {
       const page = Number.isNaN(parseInt(req.params.page, 10)) ? 1 : parseInt(req.params.page, 10);
-      const limit = 1;
+      const limit = 10;
       const offset = (page - 1) * limit;
       const users = await User.findAndCountAll({
         limit: limit,
