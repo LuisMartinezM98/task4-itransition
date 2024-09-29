@@ -12,11 +12,12 @@ const whiteList = [`${process.env.URL_FRONTEND}`];
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (whiteList.indexOf(origin) !== -1) {
+    // if (whiteList.indexOf(origin) !== -1) {
+    //   callback(null, true);
+    // } else {
+    //   callback(new Error("Not allowed by CORS"));
+    // }
       callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
   },
   methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
   allowedHeaders: ["Content-Type", "Authorization"],
