@@ -8,16 +8,13 @@ const routerUser = require("./src/routes/User");
 const app = express();
 
 const corsOptions = {
-    origin:(origin, callback) => {
-        callback(null, true);
-        console.log(origin)
-    },
+    origin: `${process.env.URL_FRONTEND}`,
     methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
     allowedHeaders: ['Content-Type', 'Authorization'],
     exposedHeaders: ['Content-Length', 'X-Kuma-Revision'],
     credentials: true,
     preflightContinue: false,
-    optionsSuccessStatus: 204,
+    optionsSuccessStatus: 204
 }
 
 
