@@ -40,7 +40,8 @@ const logIn = async(req, res) => {
     const {email, password} = req.body;
     const usuario = await User.findOne({
         where: {
-            email: email
+            email: email,
+            deleted_at: null
         },
     });
     if(!usuario){
@@ -105,22 +106,28 @@ const changeAcitve = async(req, res) => {
     return res.status(200).send({msg: 'Update successful'});
 }
 
-const deletedUser = async(req, res) => {
+const deletedUser = async (req, res) => {
     const { id } = req.body;
     try {
         const user = await User.findOne({
-            where:{
+            where: {
                 id: id
             }
         });
-        user.deleted_at = new Date();
-        await user.save();
-        return res.status(200).send({msg: 'User deleted'})
+
+        if (!user) {
+            return res.status(404).send({ msg: 'User not found' });
+        }
+
+        await user.destroy();
+
+        return res.status(200).send({ msg: 'User marked as deleted' });
     } catch (error) {
-        console.log(error);
-        return res.status(500).send({msg: 'Something was wrong'})
+        console.error(error);
+        return res.status(500).send({ msg: 'Something went wrong' });
     }
-}
+};
+
 
 
 module.exports = {singUp, logIn, changeAcitve, getUsersPaginated, deletedUser}

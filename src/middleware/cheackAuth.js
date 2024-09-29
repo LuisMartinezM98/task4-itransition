@@ -8,7 +8,12 @@ const checkAuth = async (req, res, next) => {
         try {
             token = req.headers.authorization.split(' ')[1];
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            req.user = await User.findByPk(decoded.id)
+            req.user = await User.findOne({
+                where:{
+                    id: decoded.id,
+                    deleted_at: null
+                }
+            })
             if(!req.user.active){
                 return res.status(401).send({msg: 'User blocked'});
             }

@@ -14,6 +14,6 @@ router.get('/get-users/:page', checkAuth, getUsersPaginated);
 
 router.put('/update-user', checkAuth, validatorChangeActive, changeAcitve);
 
-router.delete('/delete-user', checkAuth, validatorChangeActive, deletedUser);
+router.put('/delete-user', checkAuth, validatorChangeActive, deletedUser);
 
 module.exports = router;
