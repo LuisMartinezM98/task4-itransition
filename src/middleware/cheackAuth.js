@@ -10,7 +10,7 @@ const checkAuth = async (req, res, next) => {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             req.user = await User.findOne({
                 where:{
-                    id: decoded.id,
+                    id: decoded.user.id,
                     deleted_at: null
                 }
             })
